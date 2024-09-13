@@ -1,0 +1,25 @@
+---
+title: "D2SC: Weekly Assignments"
+output: html_notebook
+author: "Albert Sebastian"
+date: "2024-08-27"
+---
+
+# Initial Loading
+
+```{r}
+library(tidyverse)
+```
+
+
+# Week 1
+
+To figure out how to load a package in R, I started by searching for "how to load an R package" in Google. I found several helpful resources, including Stack Overflow and the RStudio website. One useful link was 'Stack Overflow - How to Load a Package in R' (https://stackoverflow.com/questions/11805142/how-to-load-a-package-in-r). 
+
+I verified that the 'tidyverse' package was correctly loaded by running 'library(tidyverse)' in the R console and checking that no error messages appeared. I also used the 'sessionInfo()' function to confirm that 'tidyverse' was listed among the loaded packages.
+
+```{r}
+help(package = "tidyverse")
+```
+
+The 'tidyverse' is a set of packages that work in harmony because they share common data representations and 'API' design. This package is designed to make it easy to install and load multiple 'tidyverse' packages in a single step. Learn more about the 'tidyverse' at https://www.tidyverse.org.
