@@ -3,6 +3,11 @@ title: "D2M Assignment Notebook"
 output: html_notebook
 author: "Albert Sebastian"
 ---
+```{r}
+library(tidyverse)
+```
+
+
 #ICMA 9/11/2024
 
 Variable names cannot have special symbols
@@ -24,4 +29,20 @@ data <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 result <- sd(data)
 print(result)
 ```
+#ICMA 9/16/2024
 
+```{r}
+my_numbers <- c(1, 2, 3, 4, 5, 8, 9, 10)
+mean_value <- mean(my_numbers)
+print(mean_value)
+mean_value_pipe <- my_numbers %>% mean()
+print(mean_value_pipe)
+```
+The two outputs are the same
+
+```{r}
+?mtcars
+write_csv(mtcars, "mtcars_fromR.csv")
+read_csv("mtcars_fromR.csv")
+```
+Everything appears as expected with no missing values or empty columns/rows
