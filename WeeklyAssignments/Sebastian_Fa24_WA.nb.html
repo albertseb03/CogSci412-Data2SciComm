@@ -1762,11 +1762,22 @@ display: none;
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5gYGAifQ== -->
 <pre class="r"><code>library(tidyverse)</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoi4pSA4pSAIEF0dGFjaGluZyBjb3JlIHRpZHl2ZXJzZSBwYWNrYWdlcyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlIDIuMC4wIOKUgOKUgFxu4pyUIGRwbHlyICAgICAxLjEuNCAgICAg4pyUIHB1cnJyICAgICAxLjAuMlxu4pyUIGZvcmNhdHMgICAxLjAuMCAgICAg4pyUIHN0cmluZ3IgICAxLjUuMVxu4pyUIGdncGxvdDIgICAzLjUuMSAgICAg4pyUIHRpYmJsZSAgICAzLjIuMVxu4pyUIGx1YnJpZGF0ZSAxLjkuMyAgICAg4pyUIHRpZHlyICAgICAxLjMuMVxu4pSA4pSAIENvbmZsaWN0cyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlX2NvbmZsaWN0cygpIOKUgOKUgFxu4pyWIGRwbHlyOjpmaWx0ZXIoKSBtYXNrcyBzdGF0czo6ZmlsdGVyKClcbuKcliBkcGx5cjo6bGFnKCkgICAgbWFza3Mgc3RhdHM6OmxhZygpXG7ihLkgVXNlIHRoZSBcdTAwMWJdODs7aHR0cDovL2NvbmZsaWN0ZWQuci1saWIub3JnL1x1MDAwN2NvbmZsaWN0ZWQgcGFja2FnZVx1MDAxYl04OztcdTAwMDcgdG8gZm9yY2UgYWxsIGNvbmZsaWN0cyB0byBiZWNvbWUgZXJyb3JzXG4ifQ== -->
+<pre><code>── Attaching core tidyverse packages ────────────────────────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ purrr     1.0.2
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the ]8;;http://conflicted.r-lib.org/conflicted package]8;; to force all conflicts to become errors</code></pre>
+<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
-<div id="week-1" class="section level1">
-<h1>Week 1</h1>
+<div id="weekly-assignment-1" class="section level1">
+<h1>Weekly Assignment 1</h1>
 <p>To figure out how to load a package in R, I started by searching for
 “how to load an R package” in Google. I found several helpful resources,
 including Stack Overflow and the RStudio website. One useful link was
@@ -1786,10 +1797,68 @@ that ‘tidyverse’ was listed among the loaded packages.</p>
 they share common data representations and ‘API’ design. This package is
 designed to make it easy to install and load multiple ‘tidyverse’
 packages in a single step. Learn more about the ‘tidyverse’ at <a href="https://www.tidyverse.org" class="uri">https://www.tidyverse.org</a>.</p>
+</div>
+<div id="weekly-assignment-2" class="section level1">
+<h1>Weekly Assignment 2</h1>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZWFkcilcbmFuYWxvZ3lfZGF0YSA8LSByZWFkX2NzdihcIlxcXFxVc2Vyc1xcXFxhbGJlclxcXFxEb2N1bWVudHNcXFxcR2l0SHViXFxcXENvZ1NjaTQxMi1EYXRhMlNjaUNvbW1cXFxcV2Vla2x5QXNzaWdubWVudHNcXFxcV2Vla2x5QXNzaWdubWVudHNcXFxcdGlkeV9kYXRhXFxcXE1GSW5kRF9hbmFsb2d5LmNzdlwiKVxuYW5hbG9neV9kYXRhXG5cbmBgYCJ9 -->
+<pre class="r"><code>library(readr)
+analogy_data &lt;- read_csv(&quot;\\Users\\alber\\Documents\\GitHub\\CogSci412-Data2SciComm\\WeeklyAssignments\\WeeklyAssignments\\tidy_data\\MFIndD_analogy.csv&quot;)
+analogy_data
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The qualtrics_id column seems to be the unique identifier for each
+participant</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkcGx5cilcblxuZGltZW5zaW9ucyA8LSBkaW0oYW5hbG9neV9kYXRhKVxucm93cyA8LSBkaW1lbnNpb25zWzFdXG5jb2xzIDwtIGRpbWVuc2lvbnNbMl1cbnJvd3NcbmNvbHNcbmBgYCJ9 -->
+<pre class="r"><code>library(dplyr)
+
+dimensions &lt;- dim(analogy_data)
+rows &lt;- dimensions[1]
+cols &lt;- dimensions[2]
+rows
+cols</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>2a. There are 792 rows and 6 columns in the dataset. The dim()
+function was used to retrieve the dimensions of the dataset,
+specifically the number of rows and columns. By calling
+dim(analogy_data), it returned a vector where the first element
+indicated the number of rows and the second element indicated the number
+of columns.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudW5pcXVlX3BhcnRpY2lwYW50cyA8LSBhbmFsb2d5X2RhdGEgJT4lXG4gIGRpc3RpbmN0KHF1YWx0cmljc19pZCkgJT4lXG4gIGNvdW50KClcbnVuaXF1ZV9wYXJ0aWNpcGFudHNcbmBgYCJ9 -->
+<pre class="r"><code>unique_participants &lt;- analogy_data %&gt;%
+  distinct(qualtrics_id) %&gt;%
+  count()
+unique_participants</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>There are 99 unique people in the dataset.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudHJpYWxzX3Blcl9wYXJ0aWNpcGFudCA8LSBhbmFsb2d5X2RhdGEgJT4lXG4gIGdyb3VwX2J5KHF1YWx0cmljc19pZCkgJT4lXG4gIHN1bW1hcmlzZSh0cmlhbF9jb3VudCA9IG4oKSlcblxuY29uc2lzdGVudF90cmlhbHMgPC0gbl9kaXN0aW5jdCh0cmlhbHNfcGVyX3BhcnRpY2lwYW50JHRyaWFsX2NvdW50KSA9PSAxXG5jb25zaXN0ZW50X3RyaWFsc1xuYGBgIn0= -->
+<pre class="r"><code>trials_per_participant &lt;- analogy_data %&gt;%
+  group_by(qualtrics_id) %&gt;%
+  summarise(trial_count = n())
+
+consistent_trials &lt;- n_distinct(trials_per_participant$trial_count) == 1
+consistent_trials</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Everyone has the same number of trials in this dataset</p>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkQyU0M6IFdlZWtseSBBc3NpZ25tZW50cyINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KYXV0aG9yOiAiQWxiZXJ0IFNlYmFzdGlhbiINCmRhdGU6ICJyIFN5cy5EYXRlKCkiDQotLS0NCg0KIyBJbml0aWFsIExvYWRpbmcNCg0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmBgYA0KDQoNCiMgV2VlayAxDQoNClRvIGZpZ3VyZSBvdXQgaG93IHRvIGxvYWQgYSBwYWNrYWdlIGluIFIsIEkgc3RhcnRlZCBieSBzZWFyY2hpbmcgZm9yICJob3cgdG8gbG9hZCBhbiBSIHBhY2thZ2UiIGluIEdvb2dsZS4gSSBmb3VuZCBzZXZlcmFsIGhlbHBmdWwgcmVzb3VyY2VzLCBpbmNsdWRpbmcgU3RhY2sgT3ZlcmZsb3cgYW5kIHRoZSBSU3R1ZGlvIHdlYnNpdGUuIE9uZSB1c2VmdWwgbGluayB3YXMgJ1N0YWNrIE92ZXJmbG93IC0gSG93IHRvIExvYWQgYSBQYWNrYWdlIGluIFInIChodHRwczovL3N0YWNrb3ZlcmZsb3cuY29tL3F1ZXN0aW9ucy8xMTgwNTE0Mi9ob3ctdG8tbG9hZC1hLXBhY2thZ2UtaW4tcikuIA0KDQpJIHZlcmlmaWVkIHRoYXQgdGhlICd0aWR5dmVyc2UnIHBhY2thZ2Ugd2FzIGNvcnJlY3RseSBsb2FkZWQgYnkgcnVubmluZyAnbGlicmFyeSh0aWR5dmVyc2UpJyBpbiB0aGUgUiBjb25zb2xlIGFuZCBjaGVja2luZyB0aGF0IG5vIGVycm9yIG1lc3NhZ2VzIGFwcGVhcmVkLiBJIGFsc28gdXNlZCB0aGUgJ3Nlc3Npb25JbmZvKCknIGZ1bmN0aW9uIHRvIGNvbmZpcm0gdGhhdCAndGlkeXZlcnNlJyB3YXMgbGlzdGVkIGFtb25nIHRoZSBsb2FkZWQgcGFja2FnZXMuDQoNCmBgYHtyfQ0KaGVscChwYWNrYWdlID0gInRpZHl2ZXJzZSIpDQpgYGANCg0KVGhlICd0aWR5dmVyc2UnIGlzIGEgc2V0IG9mIHBhY2thZ2VzIHRoYXQgd29yayBpbiBoYXJtb255IGJlY2F1c2UgdGhleSBzaGFyZSBjb21tb24gZGF0YSByZXByZXNlbnRhdGlvbnMgYW5kICdBUEknIGRlc2lnbi4gVGhpcyBwYWNrYWdlIGlzIGRlc2lnbmVkIHRvIG1ha2UgaXQgZWFzeSB0byBpbnN0YWxsIGFuZCBsb2FkIG11bHRpcGxlICd0aWR5dmVyc2UnIHBhY2thZ2VzIGluIGEgc2luZ2xlIHN0ZXAuIExlYXJuIG1vcmUgYWJvdXQgdGhlICd0aWR5dmVyc2UnIGF0IGh0dHBzOi8vd3d3LnRpZHl2ZXJzZS5vcmcuDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkQyU0M6IFdlZWtseSBBc3NpZ25tZW50cyINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KYXV0aG9yOiAiQWxiZXJ0IFNlYmFzdGlhbiINCmRhdGU6ICJyIFN5cy5EYXRlKCkiDQotLS0NCg0KIyBJbml0aWFsIExvYWRpbmcNCg0KYGBge3J9DQpsaWJyYXJ5KHRpZHl2ZXJzZSkNCmBgYA0KDQoNCiMgV2Vla2x5IEFzc2lnbm1lbnQgMQ0KDQpUbyBmaWd1cmUgb3V0IGhvdyB0byBsb2FkIGEgcGFja2FnZSBpbiBSLCBJIHN0YXJ0ZWQgYnkgc2VhcmNoaW5nIGZvciAiaG93IHRvIGxvYWQgYW4gUiBwYWNrYWdlIiBpbiBHb29nbGUuIEkgZm91bmQgc2V2ZXJhbCBoZWxwZnVsIHJlc291cmNlcywgaW5jbHVkaW5nIFN0YWNrIE92ZXJmbG93IGFuZCB0aGUgUlN0dWRpbyB3ZWJzaXRlLiBPbmUgdXNlZnVsIGxpbmsgd2FzICdTdGFjayBPdmVyZmxvdyAtIEhvdyB0byBMb2FkIGEgUGFja2FnZSBpbiBSJyAoaHR0cHM6Ly9zdGFja292ZXJmbG93LmNvbS9xdWVzdGlvbnMvMTE4MDUxNDIvaG93LXRvLWxvYWQtYS1wYWNrYWdlLWluLXIpLiANCg0KSSB2ZXJpZmllZCB0aGF0IHRoZSAndGlkeXZlcnNlJyBwYWNrYWdlIHdhcyBjb3JyZWN0bHkgbG9hZGVkIGJ5IHJ1bm5pbmcgJ2xpYnJhcnkodGlkeXZlcnNlKScgaW4gdGhlIFIgY29uc29sZSBhbmQgY2hlY2tpbmcgdGhhdCBubyBlcnJvciBtZXNzYWdlcyBhcHBlYXJlZC4gSSBhbHNvIHVzZWQgdGhlICdzZXNzaW9uSW5mbygpJyBmdW5jdGlvbiB0byBjb25maXJtIHRoYXQgJ3RpZHl2ZXJzZScgd2FzIGxpc3RlZCBhbW9uZyB0aGUgbG9hZGVkIHBhY2thZ2VzLg0KDQpgYGB7cn0NCmhlbHAocGFja2FnZSA9ICJ0aWR5dmVyc2UiKQ0KYGBgDQoNClRoZSAndGlkeXZlcnNlJyBpcyBhIHNldCBvZiBwYWNrYWdlcyB0aGF0IHdvcmsgaW4gaGFybW9ueSBiZWNhdXNlIHRoZXkgc2hhcmUgY29tbW9uIGRhdGEgcmVwcmVzZW50YXRpb25zIGFuZCAnQVBJJyBkZXNpZ24uIFRoaXMgcGFja2FnZSBpcyBkZXNpZ25lZCB0byBtYWtlIGl0IGVhc3kgdG8gaW5zdGFsbCBhbmQgbG9hZCBtdWx0aXBsZSAndGlkeXZlcnNlJyBwYWNrYWdlcyBpbiBhIHNpbmdsZSBzdGVwLiBMZWFybiBtb3JlIGFib3V0IHRoZSAndGlkeXZlcnNlJyBhdCBodHRwczovL3d3dy50aWR5dmVyc2Uub3JnLg0KDQoNCiMgV2Vla2x5IEFzc2lnbm1lbnQgMg0KDQpgYGB7cn0NCmxpYnJhcnkocmVhZHIpDQphbmFsb2d5X2RhdGEgPC0gcmVhZF9jc3YoIlxcVXNlcnNcXGFsYmVyXFxEb2N1bWVudHNcXEdpdEh1YlxcQ29nU2NpNDEyLURhdGEyU2NpQ29tbVxcV2Vla2x5QXNzaWdubWVudHNcXFdlZWtseUFzc2lnbm1lbnRzXFx0aWR5X2RhdGFcXE1GSW5kRF9hbmFsb2d5LmNzdiIpDQphbmFsb2d5X2RhdGENCg0KYGBgDQpUaGUgcXVhbHRyaWNzX2lkIGNvbHVtbiBzZWVtcyB0byBiZSB0aGUgdW5pcXVlIGlkZW50aWZpZXIgZm9yIGVhY2ggcGFydGljaXBhbnQNCg0KYGBge3J9DQpsaWJyYXJ5KGRwbHlyKQ0KDQpkaW1lbnNpb25zIDwtIGRpbShhbmFsb2d5X2RhdGEpDQpyb3dzIDwtIGRpbWVuc2lvbnNbMV0NCmNvbHMgPC0gZGltZW5zaW9uc1syXQ0Kcm93cw0KY29scw0KYGBgDQoyYS4gVGhlcmUgYXJlIDc5MiByb3dzIGFuZCA2IGNvbHVtbnMgaW4gdGhlIGRhdGFzZXQuIFRoZSBkaW0oKSBmdW5jdGlvbiB3YXMgdXNlZCB0byByZXRyaWV2ZSB0aGUgZGltZW5zaW9ucyBvZiB0aGUgZGF0YXNldCwgc3BlY2lmaWNhbGx5IHRoZSBudW1iZXIgb2Ygcm93cyBhbmQgY29sdW1ucy4gQnkgY2FsbGluZyBkaW0oYW5hbG9neV9kYXRhKSwgaXQgcmV0dXJuZWQgYSB2ZWN0b3Igd2hlcmUgdGhlIGZpcnN0IGVsZW1lbnQgaW5kaWNhdGVkIHRoZSBudW1iZXIgb2Ygcm93cyBhbmQgdGhlIHNlY29uZCBlbGVtZW50IGluZGljYXRlZCB0aGUgbnVtYmVyIG9mIGNvbHVtbnMuDQpgYGB7cn0NCnVuaXF1ZV9wYXJ0aWNpcGFudHMgPC0gYW5hbG9neV9kYXRhICU+JQ0KICBkaXN0aW5jdChxdWFsdHJpY3NfaWQpICU+JQ0KICBjb3VudCgpDQp1bmlxdWVfcGFydGljaXBhbnRzDQpgYGANClRoZXJlIGFyZSA5OSB1bmlxdWUgcGVvcGxlIGluIHRoZSBkYXRhc2V0Lg0KYGBge3J9DQp0cmlhbHNfcGVyX3BhcnRpY2lwYW50IDwtIGFuYWxvZ3lfZGF0YSAlPiUNCiAgZ3JvdXBfYnkocXVhbHRyaWNzX2lkKSAlPiUNCiAgc3VtbWFyaXNlKHRyaWFsX2NvdW50ID0gbigpKQ0KDQpjb25zaXN0ZW50X3RyaWFscyA8LSBuX2Rpc3RpbmN0KHRyaWFsc19wZXJfcGFydGljaXBhbnQkdHJpYWxfY291bnQpID09IDENCmNvbnNpc3RlbnRfdHJpYWxzDQpgYGANCkV2ZXJ5b25lIGhhcyB0aGUgc2FtZSBudW1iZXIgb2YgdHJpYWxzIGluIHRoaXMgZGF0YXNldA0K</div>
 
 
 

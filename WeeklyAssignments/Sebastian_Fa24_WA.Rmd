@@ -12,7 +12,7 @@ library(tidyverse)
 ```
 
 
-# Week 1
+# Weekly Assignment 1
 
 To figure out how to load a package in R, I started by searching for "how to load an R package" in Google. I found several helpful resources, including Stack Overflow and the RStudio website. One useful link was 'Stack Overflow - How to Load a Package in R' (https://stackoverflow.com/questions/11805142/how-to-load-a-package-in-r). 
 
@@ -23,3 +23,41 @@ help(package = "tidyverse")
 ```
 
 The 'tidyverse' is a set of packages that work in harmony because they share common data representations and 'API' design. This package is designed to make it easy to install and load multiple 'tidyverse' packages in a single step. Learn more about the 'tidyverse' at https://www.tidyverse.org.
+
+
+# Weekly Assignment 2
+
+```{r}
+library(readr)
+analogy_data <- read_csv("\\Users\\alber\\Documents\\GitHub\\CogSci412-Data2SciComm\\WeeklyAssignments\\WeeklyAssignments\\tidy_data\\MFIndD_analogy.csv")
+analogy_data
+
+```
+The qualtrics_id column seems to be the unique identifier for each participant
+
+```{r}
+library(dplyr)
+
+dimensions <- dim(analogy_data)
+rows <- dimensions[1]
+cols <- dimensions[2]
+rows
+cols
+```
+2a. There are 792 rows and 6 columns in the dataset. The dim() function was used to retrieve the dimensions of the dataset, specifically the number of rows and columns. By calling dim(analogy_data), it returned a vector where the first element indicated the number of rows and the second element indicated the number of columns.
+```{r}
+unique_participants <- analogy_data %>%
+  distinct(qualtrics_id) %>%
+  count()
+unique_participants
+```
+There are 99 unique people in the dataset.
+```{r}
+trials_per_participant <- analogy_data %>%
+  group_by(qualtrics_id) %>%
+  summarise(trial_count = n())
+
+consistent_trials <- n_distinct(trials_per_participant$trial_count) == 1
+consistent_trials
+```
+Everyone has the same number of trials in this dataset
