@@ -46,3 +46,31 @@ write_csv(mtcars, "mtcars_fromR.csv")
 read_csv("mtcars_fromR.csv")
 ```
 Everything appears as expected with no missing values or empty columns/rows
+
+#ICMA 9/18/2024
+
+```{r}
+chick_clean <- ChickWeight %>% ## assigning to a new object "chick_clean"
+  select(chick_id = Chick, 
+         diet = Diet,
+         age_days = Time, 
+         weight_gm = weight)%>%  ## renaming & re-ordering while keeping
+  mutate(weight_lb = weight_gm / 453.6)  # Creating a new column for weight in pounds
+
+# Create a summary table for Day 20
+summary_table <- chick_clean %>%
+  filter(age_days == 20) %>%  # Filter for Day 20
+  group_by(diet) %>%  # Group by diet
+  summarise(
+    num_chicks = n(),  # Count of chicks
+    avg_weight_gm = mean(weight_gm, na.rm = TRUE),  # Average weight in grams
+    avg_weight_lb = mean(weight_lb, na.rm = TRUE)  # Average weight in pounds
+  )
+
+# Print the summary table
+print(summary_table)
+```
+
+
+
+

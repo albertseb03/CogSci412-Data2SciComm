@@ -1819,9 +1819,42 @@ read_csv(&quot;mtcars_fromR.csv&quot;)</code></pre>
 <!-- rnb-text-begin -->
 <p>Everything appears as expected with no missing values or empty
 columns/rows</p>
+<p>#ICMA 9/18/2024</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2hpY2tfY2xlYW4gPC0gQ2hpY2tXZWlnaHQgJT4lICMjIGFzc2lnbmluZyB0byBhIG5ldyBvYmplY3QgXCJjaGlja19jbGVhblwiXG4gIHNlbGVjdChjaGlja19pZCA9IENoaWNrLCBcbiAgICAgICAgIGRpZXQgPSBEaWV0LFxuICAgICAgICAgYWdlX2RheXMgPSBUaW1lLCBcbiAgICAgICAgIHdlaWdodF9nbSA9IHdlaWdodCklPiUgICMjIHJlbmFtaW5nICYgcmUtb3JkZXJpbmcgd2hpbGUga2VlcGluZ1xuICBtdXRhdGUod2VpZ2h0X2xiID0gd2VpZ2h0X2dtIC8gNDUzLjYpICAjIENyZWF0aW5nIGEgbmV3IGNvbHVtbiBmb3Igd2VpZ2h0IGluIHBvdW5kc1xuXG4jIENyZWF0ZSBhIHN1bW1hcnkgdGFibGUgZm9yIERheSAyMFxuc3VtbWFyeV90YWJsZSA8LSBjaGlja19jbGVhbiAlPiVcbiAgZmlsdGVyKGFnZV9kYXlzID09IDIwKSAlPiUgICMgRmlsdGVyIGZvciBEYXkgMjBcbiAgZ3JvdXBfYnkoZGlldCkgJT4lICAjIEdyb3VwIGJ5IGRpZXRcbiAgc3VtbWFyaXNlKFxuICAgIG51bV9jaGlja3MgPSBuKCksICAjIENvdW50IG9mIGNoaWNrc1xuICAgIGF2Z193ZWlnaHRfZ20gPSBtZWFuKHdlaWdodF9nbSwgbmEucm0gPSBUUlVFKSwgICMgQXZlcmFnZSB3ZWlnaHQgaW4gZ3JhbXNcbiAgICBhdmdfd2VpZ2h0X2xiID0gbWVhbih3ZWlnaHRfbGIsIG5hLnJtID0gVFJVRSkgICMgQXZlcmFnZSB3ZWlnaHQgaW4gcG91bmRzXG4gIClcblxuIyBQcmludCB0aGUgc3VtbWFyeSB0YWJsZVxucHJpbnQoc3VtbWFyeV90YWJsZSlcbmBgYCJ9 -->
+<pre class="r"><code>chick_clean &lt;- ChickWeight %&gt;% ## assigning to a new object &quot;chick_clean&quot;
+  select(chick_id = Chick, 
+         diet = Diet,
+         age_days = Time, 
+         weight_gm = weight)%&gt;%  ## renaming &amp; re-ordering while keeping
+  mutate(weight_lb = weight_gm / 453.6)  # Creating a new column for weight in pounds
+
+# Create a summary table for Day 20
+summary_table &lt;- chick_clean %&gt;%
+  filter(age_days == 20) %&gt;%  # Filter for Day 20
+  group_by(diet) %&gt;%  # Group by diet
+  summarise(
+    num_chicks = n(),  # Count of chicks
+    avg_weight_gm = mean(weight_gm, na.rm = TRUE),  # Average weight in grams
+    avg_weight_lb = mean(weight_lb, na.rm = TRUE)  # Average weight in pounds
+  )
+
+# Print the summary table
+print(summary_table)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6NCwibmNvbCI6NCwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI0IMOXIDQiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFCbTFTVFV2RE1CaE9QMVpaWlZQeDZ0VmpDMW9Qd29UV0Q3eDVFWVhkUnRabVhWbWJkbTIzS1Y3MkU3ejZJOFNESjMvQkR2NEJRUVR4S3ZvTFpEVnBrK0dDTHlSNThuNDhlZk1rNXlkdFMyL3JBQUFGcUtvRWxCcUJvSFo1Y1dyc0E2REtaQ01CRmRUcGVrV1NOZ2xReWRxb1ZoSUVRQzZyeS8xU2dSYWlNUW96Z3RiTEtLUFo0V0NYQTR1RFBZR2g1b1l3NHdRTDJoNTA4emdsYUU0R2IyU0RESjBObXRXa2ZnZWRHZFNjNE5HaTVpUm1qNW9USFF4blc4TVp6N05mVm8rZTcyNGU3RGY1OExPMWZXMS9IRC9kZm5zdCszMnFEVjd2djhTMk1JeVFlQy9WQzFET3NJNUhVY2Z0Qis0Z1k1NEdIUHVkQ1FyOGZ0N3hvMytjWVZjNHBKN0dFNU1mUkc4cFQ4bFVGTVZQbGFnVWdpNjZCM05vOWxKU1VtbXpSTGNTSjNrUVkwSW0wemZVaEdJcEZSeHJJMHdQOXd5M1A4SUR3eExDU29KOXBqYjlBb0QxS0xIWCtJTnBGeXJ2VmVOdmlMQWZZTVQxREdFWGhaelpRMk1HbTBTQ1VnRXpTUU84RUpkNE16T1BjOGhMZERjT3VhZjZGZk5mb1VvMFlkZ0NBQUE9In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["diet"],"name":[1],"type":["fctr"],"align":["left"]},{"label":["num_chicks"],"name":[2],"type":["int"],"align":["right"]},{"label":["avg_weight_gm"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["avg_weight_lb"],"name":[4],"type":["dbl"],"align":["right"]}],"data":[{"1":"1","2":"17","3":"170.4118","4":"0.3756873"},{"1":"2","2":"10","3":"205.6000","4":"0.4532628"},{"1":"3","2":"10","3":"258.9000","4":"0.5707672"},{"1":"4","2":"9","3":"233.8889","4":"0.5156281"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[4]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkQyTSBBc3NpZ25tZW50IE5vdGVib29rIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQphdXRob3I6ICJBbGJlcnQgU2ViYXN0aWFuIg0KLS0tDQpgYGB7cn0NCmxpYnJhcnkodGlkeXZlcnNlKQ0KYGBgDQoNCg0KI0lDTUEgOS8xMS8yMDI0DQoNClZhcmlhYmxlIG5hbWVzIGNhbm5vdCBoYXZlIHNwZWNpYWwgc3ltYm9scw0KRXJyb3I6IDBobm8hVGhpc19pcy5hX25pZ2h0bWFyZSA8LSAiaGVsbG8iDQpGaXhlZDogbWVzc2FnZTwtICJoZWxsbyINCg0KMisyIGluIGNvbnNvbGU6IE91dHB1dCBzaG93cyB1cCBpbiBjb25zb2xlIHdpbmRvdw0KMisyIGluIGEgIGNodW5rOiBPdXRwdXQgc2hvd3MgdXAgcmlnaHQgYmVsb3cgdGhlICBjaHVuaw0KDQp4IDwtIDIgKyAyIGluIGEgY29kZSBjaHVuazogTm8gb3V0cHV0DQp5IDwtIDIgKyAyIGluIGNvbnNvbGU6IE5vIG91dHB1dA0KSW4gZW52aXJvbm1lbnQgcGFuZSwgeCBhbmQgeSBhcmUgbG9pc3RlZCBhcyB2YXJpYWJsZXMgd2l0aCB2YWx1ZXMgb2YgNA0KDQo/bWVhbjogUiBkaXNwbGF5cyBhIGhlbHAgcGFnZSBmb3IgdGhlIG1lYW4gZnVuY3Rpb24NCmhlbHAobWVhbik6IFNhbWUgb3V0cHV0IGFzID9tZWFuDQoNCmBgYHtyfQ0KZGF0YSA8LSBjKDEsIDIsIDMsIDQsIDUsIDYsIDcsIDgsIDksIDEwKQ0KcmVzdWx0IDwtIHNkKGRhdGEpDQpwcmludChyZXN1bHQpDQpgYGANCiNJQ01BIDkvMTYvMjAyNA0KDQpgYGB7cn0NCm15X251bWJlcnMgPC0gYygxLCAyLCAzLCA0LCA1LCA4LCA5LCAxMCkNCm1lYW5fdmFsdWUgPC0gbWVhbihteV9udW1iZXJzKQ0KcHJpbnQobWVhbl92YWx1ZSkNCm1lYW5fdmFsdWVfcGlwZSA8LSBteV9udW1iZXJzICU+JSBtZWFuKCkNCnByaW50KG1lYW5fdmFsdWVfcGlwZSkNCmBgYA0KVGhlIHR3byBvdXRwdXRzIGFyZSB0aGUgc2FtZQ0KDQpgYGB7cn0NCj9tdGNhcnMNCndyaXRlX2NzdihtdGNhcnMsICJtdGNhcnNfZnJvbVIuY3N2IikNCnJlYWRfY3N2KCJtdGNhcnNfZnJvbVIuY3N2IikNCmBgYA0KRXZlcnl0aGluZyBhcHBlYXJzIGFzIGV4cGVjdGVkIHdpdGggbm8gbWlzc2luZyB2YWx1ZXMgb3IgZW1wdHkgY29sdW1ucy9yb3dzDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkQyTSBBc3NpZ25tZW50IE5vdGVib29rIg0Kb3V0cHV0OiBodG1sX25vdGVib29rDQphdXRob3I6ICJBbGJlcnQgU2ViYXN0aWFuIg0KLS0tDQpgYGB7cn0NCmxpYnJhcnkodGlkeXZlcnNlKQ0KYGBgDQoNCg0KI0lDTUEgOS8xMS8yMDI0DQoNClZhcmlhYmxlIG5hbWVzIGNhbm5vdCBoYXZlIHNwZWNpYWwgc3ltYm9scw0KRXJyb3I6IDBobm8hVGhpc19pcy5hX25pZ2h0bWFyZSA8LSAiaGVsbG8iDQpGaXhlZDogbWVzc2FnZTwtICJoZWxsbyINCg0KMisyIGluIGNvbnNvbGU6IE91dHB1dCBzaG93cyB1cCBpbiBjb25zb2xlIHdpbmRvdw0KMisyIGluIGEgIGNodW5rOiBPdXRwdXQgc2hvd3MgdXAgcmlnaHQgYmVsb3cgdGhlICBjaHVuaw0KDQp4IDwtIDIgKyAyIGluIGEgY29kZSBjaHVuazogTm8gb3V0cHV0DQp5IDwtIDIgKyAyIGluIGNvbnNvbGU6IE5vIG91dHB1dA0KSW4gZW52aXJvbm1lbnQgcGFuZSwgeCBhbmQgeSBhcmUgbG9pc3RlZCBhcyB2YXJpYWJsZXMgd2l0aCB2YWx1ZXMgb2YgNA0KDQo/bWVhbjogUiBkaXNwbGF5cyBhIGhlbHAgcGFnZSBmb3IgdGhlIG1lYW4gZnVuY3Rpb24NCmhlbHAobWVhbik6IFNhbWUgb3V0cHV0IGFzID9tZWFuDQoNCmBgYHtyfQ0KZGF0YSA8LSBjKDEsIDIsIDMsIDQsIDUsIDYsIDcsIDgsIDksIDEwKQ0KcmVzdWx0IDwtIHNkKGRhdGEpDQpwcmludChyZXN1bHQpDQpgYGANCiNJQ01BIDkvMTYvMjAyNA0KDQpgYGB7cn0NCm15X251bWJlcnMgPC0gYygxLCAyLCAzLCA0LCA1LCA4LCA5LCAxMCkNCm1lYW5fdmFsdWUgPC0gbWVhbihteV9udW1iZXJzKQ0KcHJpbnQobWVhbl92YWx1ZSkNCm1lYW5fdmFsdWVfcGlwZSA8LSBteV9udW1iZXJzICU+JSBtZWFuKCkNCnByaW50KG1lYW5fdmFsdWVfcGlwZSkNCmBgYA0KVGhlIHR3byBvdXRwdXRzIGFyZSB0aGUgc2FtZQ0KDQpgYGB7cn0NCj9tdGNhcnMNCndyaXRlX2NzdihtdGNhcnMsICJtdGNhcnNfZnJvbVIuY3N2IikNCnJlYWRfY3N2KCJtdGNhcnNfZnJvbVIuY3N2IikNCmBgYA0KRXZlcnl0aGluZyBhcHBlYXJzIGFzIGV4cGVjdGVkIHdpdGggbm8gbWlzc2luZyB2YWx1ZXMgb3IgZW1wdHkgY29sdW1ucy9yb3dzDQoNCiNJQ01BIDkvMTgvMjAyNA0KDQpgYGB7cn0NCmNoaWNrX2NsZWFuIDwtIENoaWNrV2VpZ2h0ICU+JSAjIyBhc3NpZ25pbmcgdG8gYSBuZXcgb2JqZWN0ICJjaGlja19jbGVhbiINCiAgc2VsZWN0KGNoaWNrX2lkID0gQ2hpY2ssIA0KICAgICAgICAgZGlldCA9IERpZXQsDQogICAgICAgICBhZ2VfZGF5cyA9IFRpbWUsIA0KICAgICAgICAgd2VpZ2h0X2dtID0gd2VpZ2h0KSU+JSAgIyMgcmVuYW1pbmcgJiByZS1vcmRlcmluZyB3aGlsZSBrZWVwaW5nDQogIG11dGF0ZSh3ZWlnaHRfbGIgPSB3ZWlnaHRfZ20gLyA0NTMuNikgICMgQ3JlYXRpbmcgYSBuZXcgY29sdW1uIGZvciB3ZWlnaHQgaW4gcG91bmRzDQoNCiMgQ3JlYXRlIGEgc3VtbWFyeSB0YWJsZSBmb3IgRGF5IDIwDQpzdW1tYXJ5X3RhYmxlIDwtIGNoaWNrX2NsZWFuICU+JQ0KICBmaWx0ZXIoYWdlX2RheXMgPT0gMjApICU+JSAgIyBGaWx0ZXIgZm9yIERheSAyMA0KICBncm91cF9ieShkaWV0KSAlPiUgICMgR3JvdXAgYnkgZGlldA0KICBzdW1tYXJpc2UoDQogICAgbnVtX2NoaWNrcyA9IG4oKSwgICMgQ291bnQgb2YgY2hpY2tzDQogICAgYXZnX3dlaWdodF9nbSA9IG1lYW4od2VpZ2h0X2dtLCBuYS5ybSA9IFRSVUUpLCAgIyBBdmVyYWdlIHdlaWdodCBpbiBncmFtcw0KICAgIGF2Z193ZWlnaHRfbGIgPSBtZWFuKHdlaWdodF9sYiwgbmEucm0gPSBUUlVFKSAgIyBBdmVyYWdlIHdlaWdodCBpbiBwb3VuZHMNCiAgKQ0KDQojIFByaW50IHRoZSBzdW1tYXJ5IHRhYmxlDQpwcmludChzdW1tYXJ5X3RhYmxlKQ0KYGBgDQoNCg0KDQoNCg==</div>
 
 
 
