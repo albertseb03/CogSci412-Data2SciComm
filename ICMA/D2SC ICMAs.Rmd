@@ -69,8 +69,35 @@ summary_table <- chick_clean %>%
 
 # Print the summary table
 print(summary_table)
+
+
 ```
 
+#ICMA 9/23/2024
+
+
+```{r}
+long_billboard <- billboard %>%
+  pivot_longer(
+    cols = starts_with("wk"),
+    names_to = "week",
+    names_pattern = "wk(\\d+)",
+    values_to = "value"
+  ) %>%
+  mutate(value = replace_na(value, 0))  # Replace NAs with 0
+
+```
+In pivot_longer(), missing values from the wide form will appear as NA in the long form by default. To change how these are represented, I first reshaped the data and then used the replace_na() function from the dplyr package to fill in the missing values.
+
+```{r}
+library(lubridate)
+long_billboard <- long_billboard %>%
+  rename(date = "date.entered")  
+
+long_billboard <- long_billboard %>%
+  mutate(date = ymd(as.character(date))) %>% 
+  separate(date, into = c("Year", "Month", "Day"), sep = "-")
+```
 
 
 
