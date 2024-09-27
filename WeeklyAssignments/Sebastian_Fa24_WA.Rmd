@@ -61,3 +61,52 @@ consistent_trials <- n_distinct(trials_per_participant$trial_count) == 1
 consistent_trials
 ```
 Everyone has the same number of trials in this dataset
+
+# Weekly Assignment 3
+```{r, eval=FALSE}
+# Attempting to summarize relational matches
+summary_data <- analogy_data %>%
+  group_by(participant_id) %>%
+  summarize(relational_matches = sum(response_type == "Relational", na.rm = TRUE))
+```
+
+In this chunk, I mistakenly used "Relational" as the condition in the 'sum()' function instead of "Rel." As a result, the summarization returned 'NA' values because there were no matches found for that string in the 'response_type' column. 
+
+To fix it, I:
+1. Reviewed the dataset to check the exact labels used for the responses.
+2. Realized that the correct label was `"Rel"` for relational matches.
+3. Updated the code accordingly:
+
+```{r}
+# Summarize the data
+summary_data <- analogy_data %>%
+  group_by(qualtrics_id) %>%
+  summarize(relational_matches = sum(response_type == "Rel", na.rm = TRUE))
+
+# Check the result
+head(summary_data)
+```
+
+```{r}
+library(ggplot2)
+
+# Create a histogram
+ggplot(summary_data, aes(x = relational_matches)) +
+  geom_histogram(binwidth = 1, fill = "blue", color = "black") +
+  labs(title = "Distribution of Relational Matches",
+       x = "Number of Relational Matches",
+       y = "Frequency") +
+  theme_minimal()
+```
+The histogram shows a right-skewed distribution, with most participants selecting a low number of relational matches, and a few participants achieving higher counts.This indicates that the majority of participants may struggle with recognizing relational matches in the trials.
+
+```{r}
+# Reshape the data
+reshaped_data <- analogy_data %>%
+  select(qualtrics_id, trial_number, response_type) %>%
+  pivot_wider(names_from = trial_number, values_from = response_type, names_prefix = "Trial_")
+
+# Check the reshaped data
+head(reshaped_data)
+```
+
