@@ -99,5 +99,32 @@ long_billboard <- long_billboard %>%
   separate(date, into = c("Year", "Month", "Day"), sep = "-")
 ```
 
+#ICMA 9/25/2024
 
+```{r}
+ChickWeight %>%
+  ggplot(aes(y = weight, x = Time, color = Diet)) +
+  geom_point(alpha = 0.5) + #make these a little transparent
+  geom_smooth(se = FALSE) + #removing the error bands
+  theme_minimal() + # using a pre-made theme to change the appearance, which we can further modify!
+  
+  facet_grid(~Diet) + # faceting by diet group
+  
+  labs(y = "weight in grams",
+       x = "days since birth",
+       title = "Weight Over Time Across Diets")
+```
+
+```{r}
+ChickWeight %>%
+  ggplot(aes(y = weight, x = Time, color = Diet)) +
+  geom_boxplot(alpha = 0.5) + #make these a little transparent
+  theme_minimal() + # using a pre-made theme to change the appearance, which we can further modify!
+  
+  facet_grid(~Diet) + # faceting by diet group
+  
+  labs(y = "weight in grams",
+       x = "days since birth",
+       title = "Weight Over Time Across Diets")
+```
 
