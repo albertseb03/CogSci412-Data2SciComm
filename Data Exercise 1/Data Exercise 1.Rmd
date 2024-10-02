@@ -1,0 +1,55 @@
+---
+title: "Data Exercise 1"
+author: "Albert Sebastian"
+date: 'r Sys.Date()'
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+
+de1 <- read_csv("\\Users\\alber\\Documents\\GitHub\\CogSci412-Data2SciComm\\Data Exercise 1\\Data\\CogSci412_DE1_data.csv") %>%
+  # Filter out participants who didn't finish the study and those in the "preview" phase
+  filter(Progress == 100 & Status == "IP Address") %>%
+  
+  # Combine conditions into a single column
+  mutate(condition = case_when(
+    !is.na(FL_39_DO) ~ FL_39_DO,  # First case
+    !is.na(FL_43_DO) ~ FL_43_DO   # Second case
+  )) %>%
+  
+  # Select and rename variables for a cleaner dataset
+  select(ResponseId,
+         condition,
+         familiarity = Q10,
+         pencil_control = `Pencil Control`,
+         pencil_control_conf = `Conf. Pencil Control`,
+         mag_stnd = `Magazine Standard`,
+         mag_stnd_conf = `Conf. Mag. Stand.`,
+         mag_control = Magazine_Control,
+         mag_control_conf = `Conf. Mag. Control`,
+         pencil_stnd = Pencil_Standard,
+         pencil_stnd_conf = `Conf. Pencil Stand.`) %>%
+  
+  filter(ResponseId != "R_5R9cvvcJ5vFulLe")
+
+glimpse(de1)
+
+```
+
+```{r}
+# Convert wide format to long format
+de1_long <- de1 %>%
+  pivot_longer(pencil_control:pencil_stnd_conf,  # Specify which columns to pivot
+               names_to = "old_column",          # Column for old names
+               values_to = "value")              # Column for values
+
+# Separate the old column names into meaningful components
+de1_long <- de1_long %>%
+  filter(!is.na(value)) %>%  # Remove NA values
+  separate(into = c("content", "type", "DV"), col = old_column)
+
+glimpse(de1_long)
+
+```
+
