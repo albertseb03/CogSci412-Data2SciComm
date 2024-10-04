@@ -110,3 +110,84 @@ reshaped_data <- analogy_data %>%
 head(reshaped_data)
 ```
 
+#Weekly Assignment 4
+
+
+```{r}
+library(dplyr)
+
+data <- read.csv("WeeklyAssignments\\tidy_data\\MFIndD_REI.csv")  
+
+# Preview the data
+head(data)
+
+# Check column types
+str(data$response)
+str(data$scored_response)
+```
+The "response" column is of type character while the "scored_respose" column is a numeric(int) type.The response column contains the actual survey responses which is not inherently numeric, so it is stored as a character or factor type. The scored_response column contains numeric values that have been derived from the responses, specifically designed to quantify the survey responses for analysis.
+
+```{r}
+
+# Convert the response column into numeric values
+data <- data %>%
+  mutate(response_numeric = as.double(case_when(
+    response == "Strongly Disagree" ~ 1,
+    response == "Disagree" ~ 2,
+    response == "Neutral" ~ 3,
+    response == "Agree" ~ 4,
+    response == "Strongly Agree" ~ 5,
+    TRUE ~ NA_real_  # Handling any unexpected values
+  )))
+
+data$response_numeric[is.na(data$response_numeric)] <- as.double(data$response[is.na(data$response_numeric)])
+
+head(data)
+```
+
+
+```{r}
+data <- data %>%
+  mutate(new_scored_response = case_when(
+    is.na(rev_scoring) ~ response_numeric,
+    TRUE ~ 6 - response_numeric  # Reverse scoring logic
+  ))
+
+head(data)
+```
+
+
+
+```{r}
+# Compare new_scored_response with scored_response
+comparison <- data %>%
+  select(new_scored_response, scored_response) %>%
+  mutate(match = new_scored_response == scored_response)
+
+# Summary of matches
+match_summary <- comparison %>%
+  summarise(
+    total_rows = n(),
+    matches = sum(match, na.rm = TRUE),
+    mismatch_count = total_rows - matches
+  )
+
+print(match_summary)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
