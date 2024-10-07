@@ -8,7 +8,7 @@ output: html_notebook
 ```{r}
 library(tidyverse)
 
-de1 <- read_csv("\\Users\\alber\\Documents\\GitHub\\CogSci412-Data2SciComm\\Data Exercise 1\\Data\\CogSci412_DE1_data.csv") %>%
+de1 <- read_csv("Data\\CogSci412_DE1_data.csv") %>%
   # Filter out participants who didn't finish the study and those in the "preview" phase
   filter(Progress == 100 & Status == "IP Address") %>%
   
@@ -44,12 +44,63 @@ de1_long <- de1 %>%
                names_to = "old_column",          # Column for old names
                values_to = "value")              # Column for values
 
-# Separate the old column names into meaningful components
-de1_long <- de1_long %>%
-  filter(!is.na(value)) %>%  # Remove NA values
-  separate(into = c("content", "type", "DV"), col = old_column)
 
-glimpse(de1_long)
 
 ```
+
+```{r}
+de1_long_clean <- de1_long %>%
+  filter(is.na(value) == FALSE) %>%
+  # check is.na() and is.na() == TRUE WHEN the thing is NA and is == FALSE when the thing is not NA
+ 
+  separate(into = c("content", "type", "DV"),
+           col = old_column) %>%
+    # NA is replaced with "resp"
+  
+  mutate(DV = case_when(is.na(DV) == TRUE ~ "resp",
+                        DV == "conf" ~ "conf")) 
+```
+
+
+```{r}
+de1_analysis <- de1_long_clean %>%
+  mutate(value = parse_number(value)) %>%
+  mutate(value = case_when(value < 1 ~ value * 100,
+                           value >= 1 ~ value)) %>%
+  mutate(correct_answer = case_when(content == "pencil" & type == "stnd" ~ 5,
+                                    content == "pencil" & type == "control" ~ 10,
+                                    content == "mag" & type == "stnd" ~ 45,
+                                    content == "mag" & type == "control" ~ 90),
+         accuracy = case_when(DV == "conf" ~ NA,
+                              value == correct_answer ~ TRUE,
+                              value != correct_answer ~ FALSE))
+
+```
+
+
+
+```{r}
+de1_analysis %>%
+  filter(DV == "resp") %>%
+  group_by(type, accuracy) %>%
+  summarise(n_responses = n()) %>%
+  ggplot(aes(x = type, y = n_responses, fill = accuracy)) +
+  geom_bar(stat = "identity")
+
+```
+
+
+```{r}
+de1_analysis %>%
+  filter(DV == "resp" & type == "stnd" & accuracy == FALSE) %>%
+  ggplot(aes(x = as.factor(value))) +
+  geom_bar() +
+  facet_grid(~content)
+```
+
+
+
+
+
+
 
