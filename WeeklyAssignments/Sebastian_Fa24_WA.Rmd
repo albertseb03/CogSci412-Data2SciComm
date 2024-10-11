@@ -174,13 +174,84 @@ match_summary <- comparison %>%
 
 print(match_summary)
 ```
-#Weekly Assignment 5
+# Weekly Assignment 5
+```{r}
+library(dplyr)
+library(readr)
+
+# Read the dataset
+data <- read_csv("WeeklyAssignments/tidy_data/MFIndD_REI.csv")
+
+# Create a new column for reverse scoring
+data <- data %>%
+  mutate(new_scored_response = case_when(
+    is.na(rev_scoring) ~ scored_response,
+    TRUE ~ 6 - scored_response  # Reverse scoring logic
+  ))
+
+# Summarize the data to get one row per participant and sub_scale
+summary_data2 <- data %>%
+  group_by(qualtrics_id, sub_type) %>%  # Group by participant and sub_scale
+  summarise(score = sum(new_scored_response, na.rm = TRUE), .groups = 'drop')
+
+# Preview the summarized data
+print(head(summary_data2))
 
 
 
+```
 
 
 
+```{r}
+# Check for NA scores in the summarized data
+na_scores <- summary_data2 %>%
+  filter(is.na(score))
+
+# Count the number of NA scores
+na_count <- nrow(na_scores)
+
+# Output the count of NA scores
+na_count
+
+```
+The code filters the summary_data for any rows where the score is NA and counts how many such rows exist. Since na_count returns 0, there are no NA scores in the summary.
+
+
+```{r}
+# Summarize the analogy dataset
+analogy_summary <- analogy_data %>%
+  group_by(qualtrics_id) %>%
+  summarize(relational_matches = sum(response_type == "Rel", na.rm = TRUE), .groups = 'drop')
+
+# Combine the two summarized datasets
+combined_data <- full_join(summary_data2, analogy_summary, by = "qualtrics_id")
+
+# Preview the combined dataset
+print(head(combined_data))
+
+
+
+```
+
+```{r}
+library(ggplot2)
+
+# Create the scatterplot
+ggplot(combined_data, aes(x = score, y = relational_matches, color = sub_type)) +
+  geom_point(size = 3, alpha = 0.7) +  # Scatter points
+  geom_smooth(method = "lm", se = TRUE, linetype = "dashed", color = "black") +  # Smoothed line
+  labs(title = "Relationship Between REI Score and Analogy Score",
+       x = "REI Score",
+       y = "Analogy Score (Relational Matches)",
+       color = "REI Sub-Type") +  # Custom axis labels
+  theme_minimal() +  # Clean theme
+  theme(panel.grid.major = element_line(color = "lightgray"),  # Change grid line color
+        panel.grid.minor = element_blank())  # Remove minor grid lines
+
+```
+
+Based on the plot, I noticed that there is not a strong correlation between the two values as modeled by the best fit function being close to horizontal. Each REI sub-type has more data points with an analogy score of 4 or less except for type EE which has more data points with an analogy score of 6 or more.
 
 
 
