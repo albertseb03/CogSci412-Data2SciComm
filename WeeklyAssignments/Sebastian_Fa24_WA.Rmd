@@ -256,10 +256,69 @@ Based on the plot, I noticed that there is not a strong correlation between the 
 
 
 
+#Weekly Assignment 6
+
+
+```{r}
+data <- read_csv("WeeklyAssignments/tidy_data/MFIndD_probtask.csv")
+
+# Get distinct values in the 'condition' column
+distinct_conditions_vector <- unique(data$condition)
+
+# Initialize an empty vector for mean reaction times
+mean_reaction_times <- numeric(length(distinct_conditions_vector))
+
+# Loop through each distinct condition
+for (i in seq_along(distinct_conditions_vector)) {
+    condition <- distinct_conditions_vector[i]
+    conditionstr=condition
+    # Filter the data
+    condition_data <- subset(data, data$condition == conditionstr)
+    # Calculate the mean reaction time
+    mean_rt <- mean(condition_data$rt, na.rm = TRUE)
+    mean_reaction_times[i] <- mean_rt
+    
+    # Print the mean reaction time for each condition
+    print(paste("Condition:", condition, "Mean RT:", mean_rt))
+}
+
+
+results <- data.frame(Condition = distinct_conditions_vector, Mean_Reaction_Time = mean_reaction_times)
+
+print(results)
 
 
 
 
+```
 
 
+
+
+```{r}
+# Using dplyr with across()
+results_across <- data %>%
+  group_by(condition) %>%
+  summarize(
+    Mean_Reaction_Time = mean(rt, na.rm = TRUE),
+    Overall_Accuracy = mean(correct, na.rm = TRUE),  
+    .groups = 'drop'  
+  )
+
+print(results_across)
+```
+
+
+```{r}
+# Using dplyr without across()
+results_no_across <- data %>%
+  group_by(condition) %>%
+  summarize(
+    Mean_Reaction_Time = mean(rt, na.rm = TRUE),
+    Overall_Accuracy = mean(correct, na.rm = TRUE), 
+    .groups = 'drop'  
+  )
+
+print(results_no_across)
+```
 
