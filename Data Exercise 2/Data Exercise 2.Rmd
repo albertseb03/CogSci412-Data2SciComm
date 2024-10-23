@@ -1,0 +1,81 @@
+---
+title: "Data Exercise 2"
+author: "Albert Sebastian"
+date: 'r Sys.Date()'
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+files <- list.files(path = "DE2_Parker\\jumping_data_parker",
+                         pattern = "*.csv",
+                         full.names = TRUE)
+
+convert_columns <- function(file) {
+  
+  file <- file %>%
+    mutate(sex = case_when(sex == FALSE ~ "F",
+                         sex == "M" ~ "M"),
+           date = as.character(date))
+}
+raw_data <- map(files, read_csv) %>%
+  map(convert_columns) %>%
+  bind_rows()
+
+```
+
+```{r}
+raw_data %>%
+  distinct(condition)
+
+raw_data %>%
+  distinct(laser_trial)
+
+raw_data %>%
+  distinct(sex)
+```
+
+
+```{r}
+summary_data <- raw_data %>%
+  group_by(subject, distance) %>%
+  summarise(succ_rate = sum(outcome == 1)/n())
+
+summary_data %>%
+  ggplot(aes(x = succ_rate)) +
+  geom_histogram() 
+
+```
+
+
+```{r}
+summary_data %>%
+  ggplot(aes(x = distance,
+             y = succ_rate,
+             group = subject)) +
+  geom_line() +
+  ylim(0, 1)
+
+raw_data %>%
+  group_by(subject, distance) %>%
+  mutate(succ_rate_NOabort = sum(outcome == 1)/(n() - sum(outcome == 2)))
+```
+
+
+```{r}
+raw_data %>%
+  group_by(subject, distance) %>%
+# filter(outcome == 1 | outcome == 0)
+# filter(outcome != 2) 
+  filter(outcome %in% c(0, 1)) %>%
+  summarise(succ_rate = sum(outcome == 1)/n()) %>%
+  ggplot(aes(x = distance,
+             y = succ_rate,
+             group = subject)) +
+  geom_line() +
+  ylim(0, 1)
+```
+
