@@ -9,6 +9,7 @@ date: 'r Sys.Date()'
 
 ```{r}
 library(tidyverse)
+library(ggdist)
 ```
 
 
@@ -256,7 +257,7 @@ Based on the plot, I noticed that there is not a strong correlation between the 
 
 
 
-#Weekly Assignment 6
+# Weekly Assignment 6
 
 
 ```{r}
@@ -322,3 +323,82 @@ results_no_across <- data %>%
 print(results_no_across)
 ```
 
+
+
+# Weekly Assignment 7
+
+```{r}
+prob_data <- read_csv("WeeklyAssignments/tidy_data/MFIndD_probtask.csv")
+
+prob_data %>%
+group_by(condition) %>%
+summarise(across(c(rt, correct), mean)) %>%
+pivot_longer(c(rt, correct)) %>%
+ggplot(aes(y = value, x = condition)) +
+geom_point(color = "red") +
+facet_wrap(~name, scales = "free")
+```
+1a. Based on the plot, people's scores and reaction times are inversely related- with the higher reaction times having a lower score and vice versa. The dots_EqSizeRand image represented this relationship the least.
+
+1b. The first thing I noticed when I looked at the plot was that the data points for 3 of the 4 images were on completely different ends of the y axis when comparing the correctness graph and the reaction time graph. I think this is the case because the longer you take to come up with an answer, the more unsure you are of what the correct answer is. When your able to answer a question quickly, particularly in this sort of task, your level of certainty is generally higher.
+
+1c. The information that is hard to see in this plot is the inverse relation between the people's score and reaction time for the dots_EqSizeRand image- especially when compared to the relations between the two for the other images. I think this is the case because if the relationship between reaction time and correctness followed the same pattern as the other images, this image's reaction time would be a lot less compared to where it is now. I believe this is because it is easier to be correct when the blue and orange points are not separated which is why blob_stacked and dots_EqSizeRand have the highest scores- but the latter takes much more time because there are significantly more data points to account for.
+
+```{r}
+summarized_data <- prob_data %>%
+  group_by(SubID, condition) %>%
+  summarise(prop_corr = mean(correct), .groups = "drop")
+
+# Calculate mean and standard error of proportion correct for each condition
+plot_data <- summarized_data %>%
+  group_by(condition) %>%
+  summarise(
+    mean_prop_corr = mean(prop_corr),
+    se_prop_corr = sd(prop_corr) / sqrt(n())
+  )
+
+# Create a plot with error bars to represent standard error
+ggplot(plot_data, aes(x = condition, y = mean_prop_corr)) +
+  geom_point(color = "blue", size = 3) +
+  geom_errorbar(aes(ymin = mean_prop_corr - se_prop_corr, ymax = mean_prop_corr + se_prop_corr), 
+                width = 0.2, color = "blue") +
+  labs(x = "Condition", y = "Mean Proportion Correct", title = "Proportion Correct by Condition") +
+  theme_minimal()
+```
+
+Instead of simply plotting mean values, we calculate prop_corr to represent the proportion of correct trials per participant and condition, which better captures individual performance. Also, adding error bars to the mean proportions conveys the variability in the data, giving viewers a clearer sense of how consistent the accuracy is across participants. This avoids the common issue of plots that misleadingly imply small differences are meaningful without considering variability.
+
+
+```{r}
+summarized_data <- prob_data %>%
+  group_by(SubID, condition) %>%
+  summarise(prop_corr = mean(correct), .groups = "drop")
+
+
+plot_data <- summarized_data %>%
+  group_by(condition) %>%
+  summarise(
+    mean_prop_corr = mean(prop_corr),
+    se_prop_corr = sd(prop_corr) / sqrt(n())
+  )
+
+ggplot(plot_data, aes(x = condition, y = mean_prop_corr)) +
+  # Add slab interval to show the distribution of data
+  stat_slab(
+    aes(dist = "normal", mean = mean_prop_corr, sd = se_prop_corr),
+    fill = "skyblue", color = "darkblue", alpha = 0.3
+  ) +
+  geom_point(color = "blue", size = 3) +
+  geom_errorbar(aes(ymin = mean_prop_corr - se_prop_corr, ymax = mean_prop_corr + se_prop_corr), 
+                width = 0.2, color = "blue") +
+  labs(x = "Condition", y = "Mean Proportion Correct", title = "Proportion Correct by Condition") +
+  theme_minimal() +
+  # Center title and increase text size for readability
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12)
+  )
+```
+
+The slab provides a shaded area around each condition’s mean, showing the distribution and giving a more complete sense of how individual values vary around the mean. This layer allows us to see if the data distribution is skewed or has outliers, adding depth to our understanding of the data’s spread.
