@@ -385,8 +385,7 @@ plot_data <- summarized_data %>%
 ggplot(plot_data, aes(x = condition, y = mean_prop_corr)) +
   # Add slab interval to show the distribution of data
   stat_slab(
-    aes(dist = "normal", mean = mean_prop_corr, sd = se_prop_corr),
-    fill = "skyblue", color = "darkblue", alpha = 0.3
+    aes(fill = condition), color = "darkblue", alpha = 0.3, scale = 0.6
   ) +
   geom_point(color = "blue", size = 3) +
   geom_errorbar(aes(ymin = mean_prop_corr - se_prop_corr, ymax = mean_prop_corr + se_prop_corr), 
