@@ -79,3 +79,58 @@ raw_data %>%
   ylim(0, 1)
 ```
 
+
+```{r}
+raw_data %>%
+  group_by(subject, distance) %>%
+# filter(outcome == 1 | outcome == 0)
+# filter(outcome != 2) 
+  filter(outcome %in% c(0, 1)) %>%
+  summarise(succ_rate = sum(outcome == 1)/n()) %>%
+  ggplot(aes(x = distance,
+             y = succ_rate)) +
+  geom_line(aes(group = subject), alpha = 0.3, color = "darkblue") +
+  stat_summary(fun.data = "mean_se", geom = "errorbar", width = 0.2, color = "darkblue") +
+  stat_summary(fun.y = mean, geom = "line", color = "darkblue") +
+  ylim(0, 1) +
+  xlim(10, 25) +
+  labs(x = "gap distance (cm)",
+       y = "success rate") +
+  theme(panel.background = element_rect(fill = "white"),
+        axis.line = element_line(color = "black", linewidth = 0.5)) +
+  annotate(geom = "text", label = "binocular",
+           x = 11, y = 0.1, color = "darkblue")
+```
+
+
+```{r}
+raw_data %>%
+  distinct(experimenter)
+
+raw_data %>%
+  filter(outcome %in% c(0, 1)) %>%
+  group_by(subject, experimenter) %>%
+  summarise(succ_rate = sum(outcome == 1)/n()) %>%
+  ggplot(aes(y = succ_rate, 
+             x = experimenter)) +
+  geom_jitter(alpha = 0.3, width = 0.1, height = 0) +
+  ylim(0, 1)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
