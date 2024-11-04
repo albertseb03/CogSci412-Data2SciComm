@@ -308,6 +308,15 @@ for (i in seq_along(fave_number$name)) {
 }
 ```
 
+#ICMA 10/30/2024
+
+```{r}
+name <- "Michelle"
+ChickWeight <- ChickWeight
+ChickWeight %>%
+  ggplot(aes(y= weight, x = Time, group = Chick)) + 
+  geom_line()
+```
 
 
 
