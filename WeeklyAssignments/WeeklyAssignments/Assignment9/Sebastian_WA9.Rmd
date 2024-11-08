@@ -1,0 +1,94 @@
+---
+title: "Sebastian_WA9"
+output: ioslides_presentation
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(ggdist)
+data <- read_csv("data/MFIndD_probtask.csv")
+```
+
+```{r dataprep}
+prob_data_mod <- data %>%
+  # a. Separate `left_stim` into `left_numerator` and `left_other`
+  separate(left_stim, into = c("left_numerator", "left_other"), sep = "_", convert = TRUE) %>%
+  
+  # b. Separate `right_stim` into `right_numerator` and `right_other`
+  separate(right_stim, into = c("right_numerator", "right_other"), sep = "_", convert = TRUE) %>%
+  
+  # c. Calculate `left_proportion_value` and `right_proportion_value`
+  mutate(
+    left_proportion_value = left_numerator / (left_numerator + left_other),
+    right_proportion_value = right_numerator / (right_numerator + right_other)
+  ) %>%
+  
+  # d. Create `larger_numerator` column
+  mutate(
+    larger_numerator = if_else(left_numerator > right_numerator, "left", "right")
+  ) %>%
+  
+  # e. Create `larger_proportion` column
+  mutate(
+    larger_proportion = if_else(left_proportion_value > right_proportion_value, "left", "right")
+  ) %>%
+  
+  # f. Create `num_congruent` column
+  mutate(
+    num_congruent = (larger_numerator == larger_proportion)
+  )
+
+print(prob_data_mod)
+```
+
+```{r}
+summary_data <- prob_data_mod %>%
+  group_by(SubID, condition, num_congruent) %>%
+  summarize(proportion_correct = mean(correct, na.rm = TRUE)) %>%
+  ungroup()
+
+ggplot(summary_data, aes(x = condition, y = proportion_correct, color = num_congruent)) +
+  stat_halfeye(aes(fill = num_congruent), adjust = 0.5, width = 0.6, justification = -0.1) +
+  labs(
+    x = "Condition",
+    y = "Proportion Correct",
+    color = "Numerator Congruency",
+    fill = "Numerator Congruency"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "right",
+    plot.title = element_text(hjust = 0.5)
+  ) +
+  ggtitle("Proportion Correct by Condition and Numerator Congruency")
+```
+
+## Research Question
+
+How do people think proportionally with different kinds of stimuli?
+
+## Fork
+
+Based on each condition, does congruency between the numerators and proportions influence the accuracy of participants' judgments?
+
+## Plot
+
+```{r plot}
+
+ggplot(summary_data, aes(x = condition, y = proportion_correct, color = num_congruent)) +
+  stat_halfeye(aes(fill = num_congruent), adjust = 0.5, width = 0.6, justification = -0.1) +
+  labs(
+    x = "Condition",
+    y = "Proportion Correct",
+    color = "Numerator Congruency",
+    fill = "Numerator Congruency"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "right",
+    plot.title = element_text(hjust = 0.5)
+  ) +
+  ggtitle("Proportion Correct by Condition and Numerator Congruency")
+```
