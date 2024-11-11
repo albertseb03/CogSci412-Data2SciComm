@@ -8,7 +8,7 @@ library(tidyverse)
 ```
 
 
-#ICMA 9/11/2024
+# ICMA 9/11/2024
 
 Variable names cannot have special symbols
 Error: 0hno!This_is.a_nightmare <- "hello"
@@ -29,7 +29,7 @@ data <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 result <- sd(data)
 print(result)
 ```
-#ICMA 9/16/2024
+# ICMA 9/16/2024
 
 ```{r}
 my_numbers <- c(1, 2, 3, 4, 5, 8, 9, 10)
@@ -47,7 +47,7 @@ read_csv("mtcars_fromR.csv")
 ```
 Everything appears as expected with no missing values or empty columns/rows
 
-#ICMA 9/18/2024
+# ICMA 9/18/2024
 
 ```{r}
 chick_clean <- ChickWeight %>% ## assigning to a new object "chick_clean"
@@ -73,7 +73,7 @@ print(summary_table)
 
 ```
 
-#ICMA 9/23/2024
+# ICMA 9/23/2024
 
 
 ```{r}
@@ -99,7 +99,7 @@ long_billboard <- long_billboard %>%
   separate(date, into = c("Year", "Month", "Day"), sep = "-")
 ```
 
-#ICMA 9/25/2024
+# ICMA 9/25/2024
 
 ```{r}
 ChickWeight %>%
@@ -129,7 +129,7 @@ ChickWeight %>%
 ```
 
 
-#ICMA 10/7/2024
+# ICMA 10/7/2024
 
 ```{r}
 as.numeric("eighteen")
@@ -144,14 +144,14 @@ FALSE || NA
 ```
 
 
-#prediction:FALSE
+# prediction:FALSE
 ```{r}
 (TRUE && TRUE | FALSE) & (TRUE && FALSE && NA)
 ```
 
 
 
-#ICMA 10/9/2024
+# ICMA 10/9/2024
 
 
 ```{r}
@@ -308,7 +308,7 @@ for (i in seq_along(fave_number$name)) {
 }
 ```
 
-#ICMA 10/30/2024
+# ICMA 10/30/2024
 
 ```{r}
 name <- "Michelle"
@@ -319,8 +319,27 @@ ChickWeight %>%
 ```
 
 
+# ICMA 11/04/2024
+
+Format:beamer_presentation
+
+1.New Slide: Add --- on a new line to start a new slide.
+
+2.Bullets (Incremental): Use - or * for bullets. Set incremental: true in the YAML header to make bullets appear one at a time. You can also use \pause between bullets on specific slides.
 
 
+3.Aesthetic Features (Font, Background, Colors):
+
+Font: Add \usepackage{helvet} and \renewcommand{\familydefault}{\sfdefault} in the YAML for Helvetica or sans-serif fonts.
+Background Color: Use \setbeamercolor{background canvas}{bg=color_name} in the YAML.
+Theme and Color Options: Set theme: "Madrid" and colortheme: "dolphin" under output: beamer_presentation in the YAML.
+
+
+4.Inserting Plots, Images, Tables:
+
+Plots: Use a code chunk, e.g., {r} plot(mtcars$wt, mtcars$mpg).
+Images: Use {r} knitr::include_graphics("path/to/image.png").
+Tables: Use kable or gt, e.g., {r} kable(head(mtcars)).
 
 
 
