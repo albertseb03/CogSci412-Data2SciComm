@@ -139,6 +139,7 @@ ggplot(plot_data, aes(x = condition, y = mean_prop_corr)) +
 
 Participants' average performance was at its best with the integrated blob and dots and was at its worst with the separated/divided blobs and dots.
 
+<br>
 
 2. How are reaction time and accuracy related?
 
