@@ -80,11 +80,6 @@ theme_update(
 
 
 
-```{r setup, include = FALSE}
-library("papaja")
-r_refs("r-references.bib")
-```
-
 ```{r analysis-preferences}
 # Seed for random number generation
 set.seed(42)
