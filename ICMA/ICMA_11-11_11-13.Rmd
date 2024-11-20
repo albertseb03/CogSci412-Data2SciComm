@@ -35,7 +35,7 @@ abstract: |
 keywords          : "keywords"
 wordcount         : "X"
 
-bibliography      : "r-references.bib"
+bibliography      : "zoteroLibrary.bib"
 
 floatsintext      : no
 linenumbers       : yes
@@ -48,8 +48,8 @@ footnotelist      : no
 
 classoption       : "man"
 output            : papaja::apa6_pdf
+bibliography: references.bib
 ---
-
 
 ```{r setup}
 library("papaja")
@@ -57,7 +57,7 @@ library("tidyverse")
 library("ggplot2")
 library("readr")
 library("dplyr")
-r_refs("r-references.bib")
+r_refs("zoteroLibrary.bib")
 
 # Global chunk options
 knitr::opts_chunk$set(
@@ -68,6 +68,10 @@ knitr::opts_chunk$set(
 
 ```
 
+```{r}
+r_refs(file = "zoteroLibrary.bib")
+my_citations <- cite_r(file = "zoteroLibrary.bib")
+```
 
 ```{r theme setup}
 theme_set(theme_minimal())
@@ -78,17 +82,14 @@ theme_update(
 
 ```
 
-
-
 ```{r analysis-preferences}
 # Seed for random number generation
 set.seed(42)
 knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 ```
 
-
-
 # Methods
+
 We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
 
 ## Participants
@@ -98,17 +99,16 @@ We report how we determined our sample size, all data exclusions (if any), all m
 ## Procedure
 
 ## Data analysis
-We used `r cite_r("r-references.bib")` for all our analyses.
 
+We used `r cite_r("zoteroLibrary.bib")` for all our analyses.
 
 # Results
 
 # Discussion
 
-
 \newpage
 
-# References
+# [@adipose]References
 
 ::: {#refs custom-style="Bibliography"}
 :::
