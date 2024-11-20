@@ -1,0 +1,28 @@
+---
+title: "Data Exercise 3"
+author: "Albert Sebastian"
+date: 'r Sys.Date()'
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(ggdist)
+```
+
+```{r}
+desc <- read_csv("data/desc_all.csv") 
+e2_error <- read_csv("data/e2_error_df.csv")
+e5_error <- read_csv("data/e5_error_df.csv")
+e15_error <- read_csv("data/e15_error_df.csv")
+```
+
+```{r}
+desc %>%
+  distinct(Code, group_name)
+desc %>%
+  ggplot(aes(y = no_categories)) +
+  geom_histogram(binwidth = 1,
+                 color = "white")
+```
+
