@@ -1,0 +1,16 @@
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[H]
+  \centering
+  \includegraphics[width=0.5\linewidth]{images_WA10/Probtask_Trial.png}
+  \caption{Illustration of Probtask Trial.}
+  \label{fig:probtask-trial}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[H]
+  \centering
+  \includegraphics[width=0.5\linewidth]{images_WA10/Probtask_formats.png}
+  \caption{Illustration of Probtask formats.}
+  \label{fig:probtask-format}
+\end{figure*}
