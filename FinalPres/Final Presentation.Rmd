@@ -1,0 +1,59 @@
+---
+title: "Exploring How Napping Affects Infant Cognitive Development"
+author: "Albert Sebastian"
+date: "12-04-2024"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+data <- read_csv("infants_data_DI_task.csv")
+
+```
+
+## Research Questions
+
+-   Big Research Question: How do environmental conditions and caregiver involvement impact infants' behavioral performance and physiological processes such as sleep quality and imitation skills?
+
+-   Little research Question: What is the effect of napping on infants' cognitive task performance without parental assistance?
+
+## Method
+
+### Participants
+
+The participants in this study are infants from two different age groups: 15 months and 24 months. There were a total of 105 participants.
+
+### Study Design
+
+Participants were asked to expose themselves to media (tablet or picture book) prior to bedtime 3 days in a row. They were then asked to engage in a series of tasks where infants either imitated actions with or without caregiver support, as part of a deferred imitation task.
+
+## Plot
+
+```{r Data Prep, echo=FALSE}
+
+processed_data <- data %>%
+  mutate(NoScaff_LTFA_Score = ifelse(is.na(NoScaff_LTFA_Score), 0, NoScaff_LTFA_Score))%>%
+  group_by(condition) %>%
+  summarise(
+    target_actions = mean(NoScaff_Imi_Score[NoScaff_Imi_Score != 0], na.rm = TRUE),
+    latency_to_first_action = mean(NoScaff_LTFA_Score[NoScaff_LTFA_Score != 0], na.rm = TRUE)
+  ) %>%
+  pivot_longer(cols = -condition, names_to = "metric", values_to = "average_score")
+
+```
+
+```{r plot, echo=FALSE}
+ggplot(processed_data, aes(x = metric, y = average_score, fill = condition)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(
+    title = "Effect of Napping on Imitation Task Performance (No Scaffolding)",
+    x = "",
+    y = "Average Score",
+    fill = "Condition"
+  ) +
+  scale_x_discrete(labels = c("Latency to First Action", "Target Actions")) +
+  theme_minimal()
+```

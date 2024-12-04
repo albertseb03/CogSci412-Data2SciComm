@@ -341,6 +341,34 @@ Plots: Use a code chunk, e.g., {r} plot(mtcars$wt, mtcars$mpg).
 Images: Use {r} knitr::include_graphics("path/to/image.png").
 Tables: Use kable or gt, e.g., {r} kable(head(mtcars)).
 
+# ICMA 12/02/2024
+
+```{r}
+months <- c("April", "Dec", "Jan", "Feb", "March")
+sort(months)
+```
+
+```{r}
+months_base <- factor(months,
+                 levels = c("Jan", "Feb", "March", "April", "May", "June", "July", "Dec"))
+months_base
+```
+
+```{r}
+months_forcats <- fct(months,
+                      levels = c("Jan", "Feb", "March", "April", "May", "June", "July", "Dec"))
+months_forcats
+```
 
 
+```{r}
+factor(months,
+       levels = c("Jan", "Feb", "March", "April", "May", "June", "July"))
+```
+
+```{r}
+fct(months,
+    levels = c("Jan", "Feb", "March", "April", "May", "June", "July"),
+    na = c("Dec"))
+```
 
