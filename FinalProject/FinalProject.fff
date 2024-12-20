@@ -1,0 +1,14 @@
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\centering
+\includegraphics{FinalProject_files/figure-latex/plot 1-1.pdf}
+\caption{(\#fig:plot 1)Distributions of MAS Across Tests}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\centering
+\includegraphics{FinalProject_files/figure-latex/plot 4-1.pdf}
+\caption{(\#fig:plot 4)Qualitative Analysis}
+\end{figure*}

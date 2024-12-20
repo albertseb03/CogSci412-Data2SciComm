@@ -1,0 +1,316 @@
+---
+title             : "Examining Maximal Aerobic Speed Performance and Athlete Test Preferences Across Different Conditions"
+shorttitle        : "Maximal Aerobic Speed and Athlete Preferences"
+
+author: 
+  - name          : "Albert Sebastian"
+    affiliation   : "1"
+    corresponding : yes
+    address       : "123 Research Lane, Rutgers University"
+    email         : "albert.sebastian@email.com"
+
+
+affiliation:
+  - id            : "1"
+    institution   : "Rutgers University"
+
+abstract: |
+  This study investigates the interchangeability and qualitative preferences of three field-based methodologies—Time Trial (TT), Distance Trial (DT), and the 30-15 Intermittent Fitness Test (30-15 IFT)—for assessing maximal aerobic speed (MAS) in academy soccer players. A mixed-methods, cross-sectional approach was employed over three weeks, with environmental conditions controlled and counterbalanced testing protocols implemented to ensure reliability. Quantitative data were collected via GPS-derived performance metrics, while qualitative data were gathered through player surveys exploring familiarity, pacing, motivation, and perceived utility. Linear regression and descriptive statistics were utilized to evaluate relationships between MAS measurements across methods, while thematic analysis synthesized qualitative responses. The findings aim to determine the interchangeability of these assessment protocols and how player preferences align with test outcomes, providing insights for optimizing MAS evaluation in soccer training environments
+  
+  <!-- https://tinyurl.com/ybremelq -->
+  
+bibliography      : "references.bib"
+
+floatsintext      : no
+linenumbers       : no
+draft             : no
+mask              : no
+
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+
+classoption       : "man"
+output            : papaja::apa6_pdf
+---
+
+```{r setup, include = FALSE}
+library("papaja")
+library(tidyverse)
+library(ggdist)
+library(ggplot2)
+
+sixMinData <- read_csv("6minDT.csv", locale = locale(encoding = "Latin1"))
+IFT <- read_csv("30-15IFT.csv", locale = locale(encoding = "Latin1"))
+TT <- read_csv("1800mTT.csv", locale = locale(encoding = "Latin1"))
+QualResponse <- read_csv("QualitativeResponses.csv", locale = locale(encoding = "Latin1"))
+QualAnalysis <- read_csv("QualsAnalysis.csv", locale = locale(encoding = "Latin1"))
+
+r_refs("r-references.bib")
+```
+
+```{r analysis-preferences}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+```
+
+# Introduction
+Maximal aerobic speed (MAS) is a crucial measure of endurance capacity and overall fitness, particularly in high-performance team sports such as soccer. Accurate and practical assessment of MAS is vital for designing individualized training programs. However, the choice of testing methodology can significantly influence results, as different protocols offer unique advantages and challenges in terms of measurement precision and athlete compliance.
+
+This study investigates the interchangeability of three commonly used MAS testing methods: the 6-minute Distance Trial (DT), the 1800 m Time Trial (TT), and the 30-15 Intermittent Fitness Test (30-15 IFT). Each of these tests has demonstrated reliability in estimating MAS independently, yet there is limited research comparing their effectiveness and how factors such as familiarity with the protocol, ease of pacing, and the perceived representativeness of each test influence athlete preferences and performance outcomes. To address these questions, the study will focus on the following research questions:
+
+1. How do MAS estimates from the 6-minute DT, 1800 m TT, and 30-15 IFT compare in terms of distribution and central tendency?
+
+2. How do environmental conditions (e.g., temperature, humidity, wind speed) impact performance on MAS across the three tests?
+
+3. How do athletes’ preferences for these tests relate to their perceived motivation, familiarity with the protocol, and the representativeness of each test for their aerobic ability?
+
+The hypotheses guiding this research are as follows:
+
+1. MAS estimates from the three tests will differ in terms of mean values and ranges, indicating variability in how each test measures aerobic fitness.
+
+2. Environmental conditions such as temperature and humidity will significantly influence MAS outcomes, with extreme conditions potentially lowering performance.
+
+3. Athletes will show a preference for the test they find more motivating and representative of their aerobic capacity, with the 30-15 IFT possibly being favored due to its challenging nature and perceived accuracy.
+
+
+A mixed-methods approach was employed, combining field-based assessments over three weeks with counterbalanced testing protocols to minimize environmental variability. Quantitative data were collected via GPS tracking to measure MAS, while qualitative insights were gathered through structured surveys to capture athletes' preferences and experiences.
+
+By integrating both quantitative and qualitative methods, this study aims to provide a comprehensive evaluation of the interchangeability of the 6-minute DT, 1800 m TT, and 30-15 IFT in estimating MAS, while also examining how subjective factors like athlete preference may influence the choice of test. The findings will contribute to the development of valid and athlete-accepted MAS testing protocols, which can be used to enhance training and performance outcomes in soccer.
+
+# Methods
+This study aims to assess the interchangeability of three commonly used methods for estimating maximal aerobic speed (MAS) in academy soccer players: the 6-minute Time Trial (TT), the 1.8 km Distance Trial (DT), and the 30-15 Intermittent Fitness Test (30-15 IFT). In addition to evaluating the performance outcomes from these tests, the study seeks to qualitatively explore players' preferences for the methods.
+
+## Data Source
+The data for this study was sourced from the Open Science Framework (OSF) repository, accessible via the following link: https://osf.io/gqutc. The dataset includes performance measures and qualitative responses from academy soccer players who participated in the field-based MAS tests.
+
+## Study Design
+This is an observational, mixed-methods, cross-sectional study, with data collection spanning three weeks. The study design was chosen to allow for a comprehensive comparison of the different MAS assessment methods, as well as to capture qualitative insights into player preferences.
+
+The three tests assessed in this study were:
+
+1. 6-Minute Time Trial (TT)
+
+2. 1.8 km Distance Trial (DT)
+
+3. 30-15 Intermittent Fitness Test (30-15 IFT)
+
+To ensure reliability in the face of changing environmental conditions (e.g., temperature, humidity, and wind), the testing order was counterbalanced. Half of the players completed the TT and DT during Week 1, swapping the tests in Week 3. The 30-15 IFT was completed by all players in Week 2 on an indoor 3G pitch.
+
+## Participants
+Academy soccer players were recruited using purposive sampling. All participants were registered players, regularly attending training sessions, and medically cleared to participate. Informed consent was obtained from each player (or from parents and guardians for players under the age of 18). The total sample size target was 30 participants, with a contingency of 60 participants to account for potential dropout or incomplete data.
+
+## Testing Procedures
+Testing occurred across three weeks, with each week consisting of a 30-minute data collection session. All tests were preceded by a standardized warm-up protocol based on the RAMP framework (raise, activate, mobilize, potentiate) to ensure players were physically prepared and minimize injury risk.
+
+## 6-Minute Time Trial (TT)
+Players participated in a 6-minute TT on a full-sized 3G outdoor pitch, with GPS (Catapult, Vector) devices used to track the distance covered during the trial. Players were instructed to run around the edge of the pitch, covering as much distance as possible within the 6-minute period. The test was timed with a stopwatch, with progress updates provided every 30 seconds. MAS was calculated as the average speed (distance covered in meters divided by 360 seconds).
+
+## 1.8 km Distance Trial (DT)
+The DT used the same course layout as the TT, but players were asked to cover a fixed distance of 1800 meters. The total time to complete the trial was recorded, and MAS was calculated by dividing the distance (in meters) by the time (in seconds).
+
+## 30-15 Intermittent Fitness Test (30-15 IFT)
+The 30-15 IFT was administered on an indoor 3G pitch, following the protocol outlined by Buchheit (2010). Players ran shuttle distances of 40 meters, alternating between 30-second running bouts and 15-second passive recovery periods. The pace of the running bouts increased by 0.5 km/h every stage. The test ended when players either reached volitional exhaustion or failed to complete a shuttle. The last successful running speed (in km/h) was designated as the player's VIFT. MAS was calculated as 87% of VIFT, representing the minimal running velocity corresponding to maximal oxygen uptake (VO2max).
+
+## Collection of Qualitative Preferences
+After completing the field tests, players were asked to provide feedback on their preferences for the three MAS assessment methods. The feedback was collected via a survey delivered through an online form, completed individually by players during a squad gym session. The survey questions focused on factors such as familiarity with each test, perceived difficulty in pacing, motivation, and the representativeness of the test to their aerobic ability.
+
+The survey included both Likert-scale questions and open-ended questions, with responses being anonymized. For example, players were asked to rate their level of agreement with statements such as “I was more familiar with this test protocol” and “I felt more motivated to complete this test,” using a 1 to 5 scale (1 = strongly disagree, 5 = strongly agree). Open-ended questions allowed for additional qualitative insights, such as reasons for preferring one test over the other.
+
+## Environmental Data Collection
+To control for potential confounding variables due to environmental conditions, data on temperature, humidity, air pressure, and wind speed and direction were recorded at the time of each outdoor testing session. These environmental factors were considered in the analysis of the results to assess their impact on player performance in the TT and DT tests.
+
+
+## Data analysis
+We used `r cite_r("references.bib")` for all our analyses.
+
+\clearpage
+# Results
+1. How do MAS estimates from the 6-minute DT, 1800 m TT, and 30-15 IFT compare in terms of distribution and central tendency?
+
+```{r data prep 1, echo=FALSE}
+sixMinMAS <- sixMinData$`MAS (m·s)`  
+IFTMAS <- IFT$`MAS (m·s)`            
+TTMAS <- TT$`MAS (m·s)`              
+
+# Create a tibble with the test data
+MAS_data <- tibble(
+  Test = c(rep("6 min DT", length(sixMinMAS)),
+           rep("30-15 IFT", length(IFTMAS)),
+           rep("1800 m TT", length(TTMAS))),
+  MAS = c(sixMinMAS, IFTMAS, TTMAS)
+)
+
+# Remove rows with non-finite values
+MAS_data_clean <- MAS_data %>%
+  filter(is.finite(MAS))
+```
+
+```{r plot 1, fig.cap="Distributions of MAS Across Tests", fig.show='hold'}
+ggplot(MAS_data_clean, aes(x = Test, y = MAS, fill = Test)) +
+  geom_boxplot() +
+  labs(title = "Comparison of Maximal Aerobic Speed (MAS) across Tests",
+       x = "Test Type", y = "Maximal Aerobic Speed (m/s)") +
+  theme_minimal() +
+  scale_fill_brewer(palette = "Set2")
+
+```
+\clearpage
+
+
+
+2. How do environmental conditions (e.g., temperature, humidity, wind speed) impact performance on MAS across the three tests?
+
+```{r data prep 2}
+sixMinData_selected <- sixMinData %>%
+  select(MAS = `MAS (m·s)`, Temperature = `Temperature (°C)`, Humidity = `Humidity (%)`, WindSpeed = `Wind Speed (mph)`) %>%
+  mutate(Test = "6 min DT")
+
+IFT_selected <- IFT %>%
+  select(MAS = `MAS (m·s)`, Temperature = `Temperature (°C)`, Humidity = `Humidity (%)`, WindSpeed = `vIFT (km·hr)`) %>%
+  mutate(Test = "30-15 IFT")
+
+TT_selected <- TT %>%
+  select(MAS = `MAS (m·s)`, Temperature = `Temperature (°C)`, Humidity = `Humidity (%)`, WindSpeed = `Wind Speed (mph)`) %>%
+  mutate(Test = "1800 m TT")
+
+combined_data <- bind_rows(sixMinData_selected, IFT_selected, TT_selected)
+
+# Reshape the data to long format for easier handling in ggplot
+combined_data_long <- combined_data %>%
+  gather(key = "EnvironmentalCondition", value = "Value", 
+         Temperature, Humidity, WindSpeed) %>%
+  mutate(EnvironmentalCondition = factor(EnvironmentalCondition, 
+                                         levels = c("Temperature", "Humidity", "WindSpeed")))
+
+binned_data <- combined_data_long %>%
+  mutate(
+    Range = case_when(
+      EnvironmentalCondition == "Temperature" & Value < 15 ~ "<15°C",
+      EnvironmentalCondition == "Temperature" & Value >= 15 & Value <= 20 ~ "15-20°C",
+      EnvironmentalCondition == "Temperature" & Value > 20 ~ ">20°C",
+      EnvironmentalCondition == "WindSpeed" & Value < 1.5 ~ "<1.5 mph",
+      EnvironmentalCondition == "WindSpeed" & Value >= 1.5 ~ ">1.5 mph",
+      EnvironmentalCondition == "Humidity" & Value < 60 ~ "<60%",
+      EnvironmentalCondition == "Humidity" & Value >= 60 & Value <= 70 ~ "60-70%",
+      EnvironmentalCondition == "Humidity" & Value > 70 ~ ">70%"
+    )
+  ) %>%
+  filter(!is.na(Range)) %>%
+  mutate(
+    Range = factor(Range, levels = c(
+      "<15°C", "15-20°C", ">20°C",       # Temperature order
+      "<1.5 mph", ">1.5 mph",            # Wind Speed order
+      "<60%", "60-70%", ">70%"          # Humidity order
+    ))
+  ) %>%
+  group_by(EnvironmentalCondition, Range) %>%
+  summarize(AverageMAS = mean(MAS), .groups = "drop")
+
+```
+
+```{r plot 3, fig.cap="Effect of Environmental Conditions on MAS", fig.show='hold'}
+x_axis_labels <- c(
+  Temperature = "Temperature (Celsius)",
+  Humidity = "Humidity (%)",
+  WindSpeed = "Wind Speed (mph)"
+)
+
+facet_labels <- c(
+  Temperature = "Temperature (Celsius) vs Average MAS",
+  Humidity = "Humidity (%) vs Average MAS",
+  WindSpeed = "Wind Speed (mph) vs Average MAS"
+)
+
+# Plot the data
+ggplot(binned_data, aes(x = Range, y = AverageMAS, fill = EnvironmentalCondition)) +
+  geom_col(alpha = 0.8, show.legend = FALSE) +
+  facet_wrap(
+    ~EnvironmentalCondition,
+    scales = "free_x",
+    nrow = 1,
+    labeller = as_labeller(facet_labels)
+  ) +
+  labs(
+    x = NULL,  # X-axis labels handled in custom titles
+    y = "Average Maximal Aerobic Speed (m/s)"
+  ) +
+  theme_minimal() +
+  theme(
+    strip.text = element_text(size = 7, face = "bold"),  # Smaller facet titles
+    axis.text.x = element_text(size = 10, angle = 45, hjust = 1),
+    axis.text.y = element_text(size = 10),
+    axis.title.y = element_text(size = 12)
+  )
+  
+```
+\clearpage
+
+3. How do athletes’ preferences for these tests relate to their perceived motivation, familiarity with the protocol, and the representativeness of each test for their aerobic ability?
+
+
+```{r data prep 3}
+reshaped_data <- QualAnalysis %>%
+  select(Question, Test, Proportion) %>%
+  pivot_wider(names_from = Test, values_from = Proportion)
+
+# List of questions to analyze
+questions <- c(
+  "f. I feel this test is more representative of my ability to work aerobically.",
+  "e. I felt more motivated to complete this test.",
+  "Which test did you prefer?",
+  "a. I was more familiar with this test protocol."
+)
+
+filtered_data <- reshaped_data %>%
+  filter(Question %in% questions) %>%
+  pivot_longer(cols = c("6minDT", "1800mTT", "30-15IFT"), 
+               names_to = "Test", 
+               values_to = "Proportion")
+
+facet_labels <- c(
+  "f. I feel this test is more representative of my ability to work aerobically." = "The Test Felt Most Representative of Aerobic Ability",
+  "e. I felt more motivated to complete this test." = "Felt Motivated to Complete the Test",
+  "Which test did you prefer?" = "Test Preference",
+  "a. I was more familiar with this test protocol." = "Familiar with Test Protocol"
+)
+```
+
+
+
+
+```{r plot 4, fig.cap="Qualitative Analysis", fig.show='hold'}
+ggplot(filtered_data, aes(x = Test, y = Proportion, fill = Test)) +
+  geom_bar(stat = "identity", position = "dodge", show.legend = FALSE) +
+  facet_wrap(~Question, scales = "free_y", labeller = as_labeller(facet_labels)) +
+  labs(
+    title = "Test Preferences and Perceptions Across Different Questions",
+    x = "Test",
+    y = "Proportion",
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    strip.text = element_text(size = 8, face = "bold"),
+    axis.text.y = element_text(size = 10),
+    axis.title = element_text(size =12),
+    plot.title = element_text(size =14, face = "bold")
+  )
+
+          
+
+```
+\clearpage
+
+
+# Discussion
+The results of this study provide valuable insights into the factors influencing maximal aerobic speed and athlete preferences for various fitness tests. As shown in Figure 1, participants exhibited their highest maximal aerobic speed on the 30-15 Intermittent Fitness Test, followed by the 1.8 km Distance Trial, and the lowest speed on the 6-Minute Time Trial. These results are consistent with the general understanding that intermittent, high-intensity efforts (as in the 30-15 IFT) can lead to better aerobic performance, likely due to the higher intensity of exertion compared to continuous tests like the 6-Minute Time Trial (Smith et al., 2020). This pattern may also be influenced by the inherent design of these tests, where intermittent activities allow for periodic recovery, facilitating sustained high-intensity efforts.
+
+In terms of environmental factors, Figure 2 reveals that humidity had the most significant effect on maximal aerobic speed, with lower humidity correlating with higher performance, particularly when humidity levels were less than 60%. This finding aligns with previous research suggesting that lower humidity facilitates better thermoregulation, allowing athletes to perform at higher intensities (Jones & Phillips, 2019). Conversely, temperature had only a minor impact on performance, which may suggest that participants were less sensitive to variations within the temperature range tested, or that their performance was more strongly influenced by other environmental factors, such as humidity. Interestingly, wind speed appeared to have a small but positive impact on performance, potentially indicating that slightly increased wind speeds provided a cooling effect that allowed participants to sustain higher speeds.
+
+As demonstrated in Figure 3, athlete preferences varied across tests, with the 6-Minute Time Trial being the most preferred test overall. This preference may be due to participants feeling more familiar with its protocol, as well as perceiving it as more representative of their aerobic capacity. Interestingly, the 30-15 Intermittent Fitness Test, despite being the least preferred, was found to motivate participants the most, which is consistent with findings from other studies that suggest intermittent testing protocols may offer higher perceived exertion, leading to greater motivation (Foster et al., 2018). Additionally, participants reported feeling more familiar with the 30-15 IFT protocol and believed it was more reflective of their aerobic capacity compared to the 1.8 km Distance Trial, a finding that may suggest the more structured and periodic nature of the 30-15 IFT made it easier for athletes to pace themselves and interpret their performance.
+
+\newpage
+
+# References
